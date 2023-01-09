@@ -18,35 +18,6 @@ namespace helloWorld.Controllers
             _logger = logger;
         }
 
-        //      [HttpGet("get/{id}")]
-        //      public IActionResult getUsers(int id)
-        //      {
-        //          var user = _DbContext.Users.Find(id);
-        //          return Ok(user);
-        //      }
-
-        //      [HttpPost("update")]
-        //      public IActionResult update(User user)
-        //      {
-        //          try
-        //          {
-        //              _DbContext.Users.Update(user);
-        //          }
-        //          catch
-        //          {
-        //              return BadRequest();
-        //          }
-        //          return Ok();
-        //      }
-
-        //      [HttpPost("user")]
-        //      public IActionResult createUser(User user)
-        //      {
-        //          _logger.LogDebug("Entered to User");
-
-        //          _DbContext.Users.Add(user);
-        //          return Ok();
-        //      }
     }
 }
 
