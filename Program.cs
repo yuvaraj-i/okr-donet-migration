@@ -11,13 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<AppDbContex>(options =>
-//{
-//    var connString = builder.Configuration.GetConnectionString("Default");
-//    options.UseMySql(connString, ServerVersion.AutoDetect(connString));
-//});
+builder.Services.AddDbContext<AppDbContex>(options =>
+{
+    var connString = builder.Configuration.GetConnectionString("Default");
+    options.UseMySql(connString, ServerVersion.AutoDetect(connString));
+});
 
-builder.Services.AddScoped<okr_dbContext>();
+//builder.Services.AddScoped<okr_dbContext>();
 
 var app = builder.Build();
 

@@ -9,21 +9,22 @@ namespace helloWorld.Controllers;
 [ApiController]
 public class TestController : ControllerBase
 {
-	private readonly okr_dbContext _DbContext;
+	//private readonly okr_dbContext _DbContext;
     private readonly ILogger<TestController> _logger;
 
-    public TestController(okr_dbContext okr_DbContext, ILogger<TestController> logger)
-	{
-		_DbContext = okr_DbContext;
+    public TestController(ILogger<TestController> logger)
+    {
+        //_DbContext = okr_DbContext;
         _logger = logger;
 
     }
 
-	[HttpGet("users")]
+    [HttpGet("users")]
 	public ActionResult<ResponseModel<List<Data.User>>> getUsers()
 	{
-		var genericResponse = new ResponseModel<List<Data.User>>();
-		genericResponse.message = _DbContext.Users.ToList();
+		var genericResponse = new ResponseModel<string>();
+        //genericResponse.message = _DbContext.Users.ToList();
+        genericResponse.message = "12";
 
 
         return BadRequest(genericResponse);
@@ -34,7 +35,7 @@ public class TestController : ControllerBase
 	{
 
         var genericResponse = new ResponseModel<Data.User>();
-        genericResponse.message = _DbContext.Users.Find(id);
+        //genericResponse.message = _DbContext.Users.Find(id);
 
 
         return Ok(genericResponse);
@@ -55,7 +56,7 @@ public class TestController : ControllerBase
     {
         try
         {
-            _DbContext.Users.Update(user);
+            //_DbContext.Users.Update(user);
         }
         catch
         {
@@ -67,9 +68,9 @@ public class TestController : ControllerBase
     [HttpPost("user")]
     public IActionResult createUser(Data.User user)
     {
-        _logger.LogDebug("Entered to User");
+        //_logger.LogDebug("Entered to User");
 
-        _DbContext.Users.Add(user);
+        //_DbContext.Users.Add(user);
         return Ok();
     }
 
