@@ -1,14 +1,18 @@
 ﻿using System;
 using helloWorld.Data;
-using helloWorld.Interfaces;
 using helloWorld.Models;
 using helloWorld.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace helloWorld.Controllers
 {
+    /**
+     * multi line comment
+     **/ 
     [ApiController]
+    [Authorize]
     public class DashboardController: ControllerBase
     {
         private readonly IDashboardService _dashboardService;
@@ -25,15 +29,14 @@ namespace helloWorld.Controllers
         {
             try
             {
-
                 var genericResponse = new ResponseModel<List<ActivityLog>>();
 
                 genericResponse.message = _dashboardService.getAllActivity(page);
-                return Ok();
+                return Ok(genericResponse);
             }
-            catch
+            catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }

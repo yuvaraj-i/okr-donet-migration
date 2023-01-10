@@ -1,7 +1,7 @@
 ﻿using System;
 using helloWorld.Models;
 
-namespace helloWorld.Interfaces.Services
+namespace helloWorld.Services
 {
 	public interface IObjectiveService
 	{

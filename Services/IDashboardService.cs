@@ -1,7 +1,7 @@
 ﻿using System;
 using helloWorld.Data;
 
-namespace helloWorld.Interfaces
+namespace helloWorld.Services
 {
 	public interface IDashboardService
 	{

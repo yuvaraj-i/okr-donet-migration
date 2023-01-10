@@ -43,3 +43,16 @@
 /Users/yuvaraj/Projects/helloWorld/helloWorld/obj/Debug/net7.0/helloWorld.pdb
 /Users/yuvaraj/Projects/helloWorld/helloWorld/obj/Debug/net7.0/helloWorld.genruntimeconfig.cache
 /Users/yuvaraj/Projects/helloWorld/helloWorld/obj/Debug/net7.0/ref/helloWorld.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.DotNet.PlatformAbstractions.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.IdentityModel.Logging.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Microsoft.IdentityModel.Tokens.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Scrutor.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Swashbuckle.AspNetCore.Annotations.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Swashbuckle.AspNetCore.Filters.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll

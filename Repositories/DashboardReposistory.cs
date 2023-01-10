@@ -1,7 +1,6 @@
 ﻿using System;
 using helloWorld.Data;
 using helloWorld.DBContex;
-using helloWorld.Interfaces.Reposistory;
 
 namespace helloWorld.Repositories
 {

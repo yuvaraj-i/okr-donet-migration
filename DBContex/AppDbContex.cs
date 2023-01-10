@@ -16,6 +16,7 @@ namespace helloWorld.DBContex
 
         public DbSet<Skill> skills { get; set; }
         public DbSet<SkillSetMapping> skillSetMappings { get; set; }
+        public DbSet<User> users { get; set; }
 
     }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using helloWorld.Data;
 using helloWorld.DBContex;
-using helloWorld.Interfaces.Reposistory;
 using helloWorld.Models;
 
 namespace helloWorld.Repositories
@@ -18,7 +17,7 @@ namespace helloWorld.Repositories
 
         public void addSkills(List<Skill> skills)
         {
-            //_okr_DbContext.
+            //_appDbContext.
         }
     }
 }

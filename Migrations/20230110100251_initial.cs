@@ -29,21 +29,21 @@ namespace helloWorld.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "users",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(type: "longtext", nullable: true)
+                    name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    email = table.Column<string>(type: "longtext", nullable: true)
+                    email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    password = table.Column<string>(type: "longtext", nullable: true)
+                    password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.id);
+                    table.PrimaryKey("PK_users", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -68,9 +68,9 @@ namespace helloWorld.Migrations
                         principalColumn: "skillId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_skillSetMappings_User_Userid",
+                        name: "FK_skillSetMappings_users_Userid",
                         column: x => x.Userid,
-                        principalTable: "User",
+                        principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -96,7 +96,7 @@ namespace helloWorld.Migrations
                 name: "skills");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "users");
         }
     }
 }

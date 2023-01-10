@@ -1,7 +1,6 @@
 ﻿using System;
-using helloWorld.Interfaces.Reposistory;
-using helloWorld.Interfaces.Services;
 using helloWorld.Models;
+using helloWorld.Repositories;
 
 namespace helloWorld.Services
 {
@@ -18,6 +17,7 @@ namespace helloWorld.Services
         public void addSkill(List<Skill> skills)
         {
             _objectiveReposistory.addSkills(skills);
+            
         }
     }
 }

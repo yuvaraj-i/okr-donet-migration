@@ -10,7 +10,7 @@ using helloWorld.DBContex;
 namespace helloWorld.Migrations
 {
     [DbContext(typeof(AppDbContex))]
-    [Migration("20230109204748_initial")]
+    [Migration("20230110100251_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,17 +73,20 @@ namespace helloWorld.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("email")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("password")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("id");
 
-                    b.ToTable("User");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("helloWorld.Datas.SkillSetMapping", b =>

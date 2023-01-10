@@ -1,7 +1,6 @@
 ﻿using System;
 using helloWorld.Data;
-using helloWorld.Interfaces;
-using helloWorld.Interfaces.Reposistory;
+using helloWorld.Repositories;
 
 namespace helloWorld.Services
 {
@@ -16,10 +15,10 @@ namespace helloWorld.Services
 
         public List<ActivityLog> getAllActivity(int page)
         {
-            List<ActivityLog> activityList = _dashboardReposistory.getAllActivity(page);
+            List<ActivityLog> activityList = new List<ActivityLog>();
 
             return activityList;
-        } 
+        }
     }
 }
 

@@ -18,6 +18,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,16 +29,14 @@
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
     <None Remove="Services\" />
     <None Remove="Repositories\" />
-    <None Remove="Interfaces\" />
-    <None Remove="Interfaces\Services\" />
-    <None Remove="Interfaces\Reposistory\" />
+    <None Remove="Utils\" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Swashbuckle.AspNetCore.Filters" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DBContex\" />
     <Folder Include="Services\" />
     <Folder Include="Repositories\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Interfaces\Services\" />
-    <Folder Include="Interfaces\Reposistory\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 </Project>

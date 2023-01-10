@@ -1,6 +1,6 @@
 ﻿using System;
-using helloWorld.Interfaces.Services;
 using helloWorld.Models;
+using helloWorld.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace helloWorld.Controllers

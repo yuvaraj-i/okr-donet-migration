@@ -1,6 +1,12 @@
 using helloWorld.Data;
 using helloWorld.DBContex;
+using helloWorld.Repositories;
+using helloWorld.Services;
+using helloWorld.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standard Authorization using bearer scheme (\"Bearer {token}\" ) ",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    c.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 builder.Services.AddDbContext<AppDbContex>(options =>
 {
@@ -17,7 +34,30 @@ builder.Services.AddDbContext<AppDbContex>(options =>
     options.UseMySql(connString, ServerVersion.AutoDetect(connString));
 });
 
-//builder.Services.AddScoped<okr_dbContext>();
+builder.Services.AddScoped<AppDbContex>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IObjectiveService, ObjectiveService>();
+builder.Services.AddScoped<IDashboardReposistory, DashboardReposistory>();
+builder.Services.AddScoped<IObjectiveReposistory, ObjectiveReposistory>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+
+builder.Services.AddSingleton<IJwtTokenUtils, JwtTokenUtils>();
+
+
+builder.Services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    options =>
+    {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("my favourite token is here thank you")),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 var app = builder.Build();
 

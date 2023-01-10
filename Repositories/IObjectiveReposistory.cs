@@ -1,7 +1,7 @@
 ﻿using System;
 using helloWorld.Models;
 
-namespace helloWorld.Interfaces.Reposistory
+namespace helloWorld.Repositories
 {
 	public interface IObjectiveReposistory
 	{
