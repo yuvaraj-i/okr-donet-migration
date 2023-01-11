@@ -1,4 +1,5 @@
 ﻿using System;
+using helloWorld.Datas;
 using helloWorld.DBContex;
 using helloWorld.Models;
 
@@ -13,17 +14,17 @@ namespace helloWorld.Repositories
             _appDbContext = appDbContext;
 		}
 
-        public void addSkills(Skill skills)
+        public void addSkill(Skill skills)
         {
             _appDbContext.skills.Add(skills);
+            _appDbContext.SaveChanges();
         }
 
-        public List<Skill> getSkillByUserId(int userId)
+        public Skill getSkill(string skillDescription)
         {
-            var userSkill = _appDbContext.skillSetMappings.Where(s => s.User.id == userId).Select(s => s.Skill).ToList();
-
-            return userSkill;
+            return _appDbContext.skills.Where(s => s.skillDescription == skillDescription).First();
         }
+
     }
 }
 

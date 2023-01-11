@@ -26,7 +26,10 @@ namespace helloWorld.Repositories
             return _DbContext.users.Where(s => s.email == email).FirstOrDefault<User>();
         }
 
-
+        public User getUserById(int id)
+        {
+            return _DbContext.users.Find(id);
+        }
     }
 }
 

@@ -5,8 +5,8 @@ namespace helloWorld.Repositories
 {
 	public interface ISkillRepository
 	{
-        public void addSkills(Skill skills);
-        public List<Skill> getSkillByUserId(int userId);
+        public void addSkill(Skill skills);
+        public Skill getSkill(string skillDescription);
     }
 }
 

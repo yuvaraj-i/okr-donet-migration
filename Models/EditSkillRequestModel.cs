@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace helloWorld.Models
 {
-	public class Skill
+	public class EditSkillRequestModel
 	{
-        [Key]
         public int skillId { get; set; }
-        [Required]
-        [StringLength(1000)]
-        public String? skillDescription { get; set; }
+        public int skillSetId { get; set; }
+        public int rating { get; set; }
         public bool isDeleted { get; set; } = false;
     }
+	
 }
 

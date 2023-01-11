@@ -16,13 +16,6 @@ namespace helloWorld.Controllers
 
         }
 
-		[HttpPut("add-skill")]
-		public IActionResult addSkill(List<Skill> skills)
-		{
-			_objectiveService.addSkill(skills);
-
-            return Ok(skills);
-        }
     }
 }
 

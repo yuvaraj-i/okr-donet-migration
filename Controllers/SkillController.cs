@@ -39,9 +39,8 @@ namespace helloWorld.Controllers
         }
 
 
-
-		[HttpPost("add_skill")]
-		public IActionResult addUserSkills(List<Skill> skills)
+		[HttpPost("add"), Authorize]
+		public IActionResult addUserSkills(List<SkillRequestModel> skills)
 		{
 			try
 			{
@@ -58,8 +57,48 @@ namespace helloWorld.Controllers
 			{
                 return BadRequest(e.Message);
             }
-
 		}
-	}
+
+        [HttpPut("edit"), Authorize]
+        public IActionResult editUserSkills(EditSkillRequestModel skills)
+        {
+            try
+            {
+                var userId = Int32.Parse(User?.Identity?.Name);
+
+                var genericResponse = new ResponseModel<string>();
+                _skillService.editUserSkill(skills, userId);
+                genericResponse.message = "success";
+
+                return Ok(genericResponse);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}"), Authorize]
+        public IActionResult editUserSkills(int id)
+        {
+            try
+            {
+                var userId = Int32.Parse(User?.Identity?.Name);
+
+                var genericResponse = new ResponseModel<string>();
+                _skillService.deleteUserSkill(id, userId);
+                genericResponse.message = "success";
+
+                return Ok(genericResponse);
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+    }
 }
 

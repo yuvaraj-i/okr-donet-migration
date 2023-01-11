@@ -51,6 +51,7 @@ builder.Services.AddScoped<IObjectiveReposistory, ObjectiveReposistory>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
+builder.Services.AddScoped<ISkillSetMappingRepository, SkillSetMappingRepository>();
 
 builder.Services.AddSingleton<IJwtTokenUtils, JwtTokenUtils>();
 
