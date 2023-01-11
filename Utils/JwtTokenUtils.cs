@@ -17,7 +17,7 @@ namespace helloWorld.Utils
             List<Claim> claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email,user.email),
-                    new Claim("userId",user.id.ToString())
+                    new Claim(ClaimTypes.Name,user.id.ToString())
                 };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("my favourite token is here thank you"));

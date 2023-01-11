@@ -1,5 +1,5 @@
 ﻿using System;
-using helloWorld.Data;
+
 using helloWorld.Repositories;
 
 namespace helloWorld.Services
@@ -13,9 +13,9 @@ namespace helloWorld.Services
             _dashboardReposistory = dashboardReposistory;
         }
 
-        public List<ActivityLog> getAllActivity(int page)
+        public List<string> getAllActivity(int page)
         {
-            List<ActivityLog> activityList = new List<ActivityLog>();
+            List<string> activityList = new List<string>();
 
             return activityList;
         }

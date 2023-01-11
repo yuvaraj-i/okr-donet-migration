@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using helloWorld.DBContex;
 using helloWorld.Models;
 using helloWorld.Services;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace helloWorld.Controllers
 {
@@ -25,6 +26,7 @@ namespace helloWorld.Controllers
         [HttpPost("signup")]
         public ActionResult addUser(UserModel user)
         {
+            _logger.LogError("Processed {@user} in {Elapsed:000} ms.", user);
             try { 
                 var genericResponse = new ResponseModel<string>();
                 _homeService.createUser(user);
@@ -42,6 +44,7 @@ namespace helloWorld.Controllers
         [HttpPost("login")]
         public ActionResult login(UserRequest request)
         {
+            _logger.LogInformation("Processed {@user} in {Elapsed:000} ms.", request);
             try
             {
                 var genericResponse = new ResponseModel<string>();

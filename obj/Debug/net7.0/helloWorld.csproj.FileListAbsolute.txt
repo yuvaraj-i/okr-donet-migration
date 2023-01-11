@@ -56,3 +56,7 @@
 /Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Swashbuckle.AspNetCore.Annotations.dll
 /Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Swashbuckle.AspNetCore.Filters.dll
 /Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Serilog.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Serilog.Extensions.Hosting.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Serilog.Extensions.Logging.dll
+/Users/yuvaraj/Projects/helloWorld/helloWorld/bin/Debug/net7.0/Serilog.Sinks.Console.dll

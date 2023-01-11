@@ -1,5 +1,4 @@
 ﻿using System;
-using helloWorld.Data;
 using helloWorld.Models;
 using helloWorld.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -27,18 +26,20 @@ namespace helloWorld.Controllers
         [HttpGet("get_all_activity")]
         public IActionResult getAllActivity(int page)
         {
-            try
-            {
-                var genericResponse = new ResponseModel<List<ActivityLog>>();
+            _logger.LogInformation("Processed {@page} in {Elapsed:000} ms.", page);
+            //try
+            //{
+            //    var genericResponse = new ResponseModel<List<ActivityLog>>();
 
-                genericResponse.message = _dashboardService.getAllActivity(page);
-                return Ok(genericResponse);
-            }
-            catch(Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            //    genericResponse.message = _dashboardService.getAllActivity(page);
+            //    return Ok(genericResponse);
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
 
+            return Ok();
         }
 
     }

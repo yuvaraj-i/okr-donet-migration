@@ -10,7 +10,7 @@ namespace helloWorld.Models
 		public User User { get; set; }
 		public string accomplishmentTitle { get; set; }
         public string accomplishmentDescription { get; set; }
-        public DateTime accomplishDate { get; set; }
+        public DateTime accomplishedDate { get; set; }
     }
 }
 
