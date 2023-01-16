@@ -22,7 +22,7 @@ namespace helloWorld.Repositories
 
         public Skill getSkill(string skillDescription)
         {
-            return _appDbContext.skills.Where(s => s.skillDescription == skillDescription).First();
+            return _appDbContext.skills.Where(s => s.skillDescription == skillDescription).FirstOrDefault();
         }
 
     }

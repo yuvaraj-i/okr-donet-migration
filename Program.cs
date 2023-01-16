@@ -16,8 +16,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 var log = new LoggerConfiguration()
-    .WriteTo.Console()
-    //WriteTo.("log.txt")
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
     .CreateLogger();
 
 builder.Logging.AddSerilog(log);
@@ -39,6 +39,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContex>(options =>
 {
     var connString = builder.Configuration.GetConnectionString("Default");
+    Console.WriteLine(connString);
     options.UseMySql(connString, ServerVersion.AutoDetect(connString));
 });
 
@@ -52,7 +53,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISkillService, SkillService>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 builder.Services.AddScoped<ISkillSetMappingRepository, SkillSetMappingRepository>();
-
+builder.Services.AddScoped<IAccomplishmentRepository, AccomplishmentRepository>();
+builder.Services.AddScoped<IActivityLogRepository, ActivityLogRepository>();
 builder.Services.AddSingleton<IJwtTokenUtils, JwtTokenUtils>();
 
 

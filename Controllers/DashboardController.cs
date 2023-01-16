@@ -23,23 +23,41 @@ namespace helloWorld.Controllers
             _logger = logger;
         }
 
-        [HttpGet("get_all_activity")]
+        [HttpGet("activities")]
+        public IActionResult getAllActivity()
+        {
+            _logger.LogInformation("Processed in ms.");
+
+            try
+            {
+                var userId = Int32.Parse(User?.Identity?.Name);
+                var genericResponse = new ResponseModel<List<ActivityLog>>();
+
+                genericResponse.message = _dashboardService.getAllActivity(userId);
+                return Ok(genericResponse);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("activity")]
         public IActionResult getAllActivity(int page)
         {
             _logger.LogInformation("Processed {@page} in {Elapsed:000} ms.", page);
-            //try
-            //{
-            //    var genericResponse = new ResponseModel<List<ActivityLog>>();
 
-            //    genericResponse.message = _dashboardService.getAllActivity(page);
-            //    return Ok(genericResponse);
-            //}
-            //catch (Exception e)
-            //{
-            //    return BadRequest(e.Message);
-            //}
+            try
+            {
+                var genericResponse = new ResponseModel<List<ActivityLog>>();
 
-            return Ok();
+                genericResponse.message = _dashboardService.getAllActivity(page);
+                return Ok(genericResponse);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
     }

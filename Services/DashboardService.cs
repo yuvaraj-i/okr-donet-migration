@@ -1,24 +1,42 @@
 ﻿using System;
-
+using helloWorld.Models;
 using helloWorld.Repositories;
 
 namespace helloWorld.Services
 {
 	public class DashboardService : IDashboardService
     {
+        private readonly int LIMIT = 10;
         private readonly IDashboardReposistory _dashboardReposistory;
+        private readonly IActivityLogRepository _activityLogRepository;
+        private readonly ILogger<DashboardService> _logger;
 
-        public DashboardService(IDashboardReposistory dashboardReposistory)
+        public DashboardService(IDashboardReposistory dashboardReposistory, IActivityLogRepository activityLogRepository, ILogger<DashboardService> logger)
 		{
             _dashboardReposistory = dashboardReposistory;
+            _activityLogRepository = activityLogRepository;
+            _logger = logger;
         }
 
-        public List<string> getAllActivity(int page)
+        public List<ActivityLog> getAllActivity(int page, int userId)
         {
-            List<string> activityList = new List<string>();
+            _logger.LogInformation("DashboardService getAllActivity");
+
+            int skip = (page - 1) * LIMIT;
+
+            List<ActivityLog> activityList = _activityLogRepository.getUserActivityLogsByLimit(page, userId, skip);
 
             return activityList;
+            
         }
+
+        public List<ActivityLog> getAllActivity(int userId)
+        {
+            _logger.LogInformation("DashboardService getAllActivity");
+            return _activityLogRepository.getUserActivityLog(userId);
+            
+        }
+
     }
 }
 

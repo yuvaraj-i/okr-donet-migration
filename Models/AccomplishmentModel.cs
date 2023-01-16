@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using helloWorld.Common;
 
 namespace helloWorld.Models
 {
@@ -11,6 +12,8 @@ namespace helloWorld.Models
 		public string accomplishmentTitle { get; set; }
         public string accomplishmentDescription { get; set; }
         public DateTime accomplishedDate { get; set; }
+        public AccomplishmentType accomplishmentType { get; set; }
     }
+
 }
 

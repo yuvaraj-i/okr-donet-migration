@@ -9,6 +9,10 @@ namespace helloWorld.Services
         public List<Skill> getUserSkills(int userId);
         public void editUserSkill(EditSkillRequestModel editSkillRequestModel, int userId);
         void deleteUserSkill(int skillId, int userId);
+        void addUserPoc(AccomplishmentRequest accomplishmentRequest, int userId);
+        void editUserPoc(EditAccomplishmentRequest accomplishmentRequest, int userId);
+        void deleteUserPoc(int id, int userId);
+        List<AccomplishmentModel> getUserPoc(int userId);
     }
 }
 

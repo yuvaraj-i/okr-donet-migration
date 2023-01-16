@@ -35,14 +35,14 @@ namespace helloWorld.Repositories
 
         public SkillSetMapping getSkillSetById(int skillSetId, int userId)
         {
-            var userSkillSet = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillSetId).First();
+            var userSkillSet = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillSetId).FirstOrDefault();
 
             return userSkillSet;
         }
 
         public Skill getUserSkillBySkill(int userId, int skillId)
         {
-            var userSkill = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillId).Select(s => s.Skill).First();
+            var userSkill = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillId).Select(s => s.Skill).FirstOrDefault();
 
             return userSkill;
         }
