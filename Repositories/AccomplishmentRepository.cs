@@ -17,29 +17,73 @@ namespace helloWorld.Repositories
 
         public void addUserPoc(AccomplishmentModel accomplishmentModel)
         {
-            _DbContext.accomplishments.Add(accomplishmentModel);
-            _DbContext.SaveChanges();
+            try
+            {
+                _DbContext.accomplishments.Add(accomplishmentModel);
+                _DbContext.SaveChanges();
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
 
         public void deleteUserPocById(AccomplishmentModel accomplishmentModel)
         {
-            _DbContext.accomplishments.Remove(accomplishmentModel);
+            try
+            {
+
+                _DbContext.accomplishments.Remove(accomplishmentModel);
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public List<AccomplishmentModel> getUserPocs(int id)
         {
-            return _DbContext.accomplishments.Where(s => s.User.id == id).ToList();
+            try
+            {
+                return _DbContext.accomplishments.Where(s => s.User.id == id).ToList();
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public AccomplishmentModel getUserPocById(int id)
         {
-           return _DbContext.accomplishments.Find(id);
+            try
+            {
+
+                return _DbContext.accomplishments.Find(id);
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public void updateUserPoc(AccomplishmentModel accomplishmentModel)
         {
-            _DbContext.accomplishments.Update(accomplishmentModel);
-            _DbContext.SaveChanges();
+            try
+            {
+                _DbContext.accomplishments.Update(accomplishmentModel);
+                _DbContext.SaveChanges();
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
 
     }

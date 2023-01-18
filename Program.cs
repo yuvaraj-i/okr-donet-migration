@@ -38,8 +38,9 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<AppDbContex>(options =>
 {
-    var connString = builder.Configuration.GetConnectionString("Default");
-    Console.WriteLine(connString);
+    var local = "Default";
+    var deployed = "Deployed";
+    var connString = builder.Configuration.GetConnectionString(deployed);
     options.UseMySql(connString, ServerVersion.AutoDetect(connString));
 });
 
@@ -61,10 +62,11 @@ builder.Services.AddSingleton<IJwtTokenUtils, JwtTokenUtils>();
 builder.Services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
     options =>
     {
+        var tokenKey = builder.Configuration.GetValue<string>("Token:Key");
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("my favourite token is here thank you")),
+            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(tokenKey)),
             ValidateIssuer = false,
             ValidateAudience = false
         };
@@ -75,7 +77,7 @@ builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

@@ -28,42 +28,61 @@ namespace helloWorld.Services
         public void addSkill(List<SkillRequestModel> skills, int userId)
         {
             _logger.LogInformation("SkillService addSkill");
-            foreach (SkillRequestModel s in skills)
+
+            try
             {
-                var currentSkill = _skillRepository.getSkill(s.skillDescription);
-                var userSkill = new Skill();
-                userSkill.skillDescription = s.skillDescription;
-
-                if (currentSkill == null)
+                foreach (SkillRequestModel s in skills)
                 {
-                    _skillRepository.addSkill(userSkill);
+                    var currentSkill = _skillRepository.getSkill(s.skillDescription);
+                    var userSkill = new Skill();
+                    userSkill.skillDescription = s.skillDescription;
+
+                    if (currentSkill == null)
+                    {
+                        _skillRepository.addSkill(userSkill);
+                    }
+
+                    var skill = _skillRepository.getSkill(s.skillDescription);
+                    var user = _userRepository.getUserById(userId);
+
+
+                    var skillSet = new SkillSetMapping();
+                    skillSet.Skill = skill;
+                    skillSet.User = user;
+                    skillSet.rating = s.rating;
+
+                    _skillSetMappingRepository.addSkillSet(skillSet);
+
+                    var userActivityLog = new ActivityLog();
+                    userActivityLog.acctivityAction = "Added a skill";
+                    userActivityLog.user = user;
+                    userActivityLog.topicType = s.skillDescription;
+                    userActivityLog.date = DateTime.Today;
+
+                    _activityLogRepository.addUserActivityLog(userActivityLog);
                 }
-
-                var skill = _skillRepository.getSkill(s.skillDescription);
-                var user = _userRepository.getUserById(userId);
-
-
-                var skillSet = new SkillSetMapping();
-                skillSet.Skill = skill;
-                skillSet.User = user;
-                skillSet.rating = s.rating;
-
-                _skillSetMappingRepository.addSkillSet(skillSet);
-
-                var userActivityLog = new ActivityLog();
-                userActivityLog.acctivityAction = "Added a skill";
-                userActivityLog.user = user;
-                userActivityLog.topicType = s.skillDescription;
-                userActivityLog.date = DateTime.Today;
-
-                _activityLogRepository.addUserActivityLog(userActivityLog);
             }
+
+            catch
+            {
+                throw;
+            }
+
+
         }
 
         public List<Skill> getUserSkills(int userId)
         {
             _logger.LogInformation("SkillService getUserSkills");
-            return _skillSetMappingRepository.getSkillByUserId(userId);
+            try
+            {
+                return _skillSetMappingRepository.getSkillByUserId(userId);
+            }
+
+            catch
+            {
+                throw;
+            }
 
         }
 
@@ -71,13 +90,15 @@ namespace helloWorld.Services
         {
             _logger.LogInformation("SkillService editUserSkill");
 
-            var skill = _skillSetMappingRepository.getUserSkillBySkill(editSkillRequestModel.skillSetId, userId);
-
-            if (skill == null)
+            try
             {
-                _logger.LogInformation("SkillService {@editSkillRequestModel}", editSkillRequestModel);
-                throw new Exception($"given skill {editSkillRequestModel.skillId} not found for this {userId}");
-            }
+                var skill = _skillSetMappingRepository.getUserSkillBySkill(editSkillRequestModel.skillSetId, userId);
+
+                if (skill == null)
+                {
+                    _logger.LogInformation("SkillService {@editSkillRequestModel}", editSkillRequestModel);
+                    throw new Exception($"given skill {editSkillRequestModel.skillId} not found for this {userId}");
+                }
 
                 var skillSet = _skillSetMappingRepository.getSkillSetById(userId, editSkillRequestModel.skillId);
 
@@ -94,45 +115,64 @@ namespace helloWorld.Services
                 userActivityLog.date = DateTime.Today;
 
                 _activityLogRepository.addUserActivityLog(userActivityLog);
+            }
+
+            catch
+            {
+                throw;
+            }
 
         }
 
         public void deleteUserSkill(int skillId, int userId)
         {
             _logger.LogInformation("SkillService editUserSkill");
-            var skillSet = _skillSetMappingRepository.getSkillSetById(userId, skillId);
 
-            if (skillSet == null)
+            try
             {
-                _logger.LogError("SkillService {@skillId} invalid id", skillId);
-                throw new Exception("given skill not found for this user");
+                var skillSet = _skillSetMappingRepository.getSkillSetById(userId, skillId);
+
+                if (skillSet == null)
+                {
+                    _logger.LogError("SkillService {@skillId} invalid id", skillId);
+                    throw new Exception("given skill not found for this user");
+                }
+
+                if (skillSet.isDeleted)
+                {
+                    _logger.LogError("SkillService {@skillId} already deleted", skillId);
+                    throw new Exception("given skill is already deleted");
+                }
+
+                skillSet.isDeleted = true;
+
+                _skillSetMappingRepository.updateSkillSet(skillSet);
+                var user = _userRepository.getUserById(userId);
+
+                var userActivityLog = new ActivityLog();
+                userActivityLog.acctivityAction = "Deleted a skill";
+                userActivityLog.user = user;
+                userActivityLog.topicType = skillSet.Skill.skillDescription;
+                userActivityLog.date = DateTime.Today;
+
+                _activityLogRepository.addUserActivityLog(userActivityLog);
             }
 
-            if (skillSet.isDeleted)
+            catch
             {
-                _logger.LogError("SkillService {@skillId} already deleted", skillId);
-                throw new Exception("given skill is already deleted");
+                throw;
             }
 
-             skillSet.isDeleted = true;
-
-             _skillSetMappingRepository.updateSkillSet(skillSet);
-             var user = _userRepository.getUserById(userId);
-
-             var userActivityLog = new ActivityLog();
-             userActivityLog.acctivityAction = "Deleted a skill";
-             userActivityLog.user = user;
-             userActivityLog.topicType = skillSet.Skill.skillDescription;
-             userActivityLog.date = DateTime.Today;
-
-            _activityLogRepository.addUserActivityLog(userActivityLog);
 
         }
 
         public void addUserPoc(AccomplishmentRequest accomplishmentRequest, int userId)
         {
             _logger.LogInformation("SkillService addUserPoc");
-            var user = _userRepository.getUserById(userId);
+
+            try
+            {
+                var user = _userRepository.getUserById(userId);
 
                 if (user == null)
                 {
@@ -156,13 +196,23 @@ namespace helloWorld.Services
                 userActivityLog.date = DateTime.Today;
 
                 _activityLogRepository.addUserActivityLog(userActivityLog);
+            }
+
+            catch
+            {
+                throw;
+            }
+
 
         }
 
         public void editUserPoc(EditAccomplishmentRequest accomplishmentRequest, int userId)
         {
             _logger.LogInformation("SkillService editUserPoc");
-            var userPoc = _accomplishmentRepository.getUserPocById(accomplishmentRequest.accomplishmentId);
+
+            try
+            {
+                var userPoc = _accomplishmentRepository.getUserPocById(accomplishmentRequest.accomplishmentId);
                 userPoc.accomplishmentTitle = accomplishmentRequest.accomplishmentTitle;
                 userPoc.accomplishmentDescription = accomplishmentRequest.accomplishmentDescription;
                 userPoc.accomplishedDate = accomplishmentRequest.accomplishedDate;
@@ -178,12 +228,22 @@ namespace helloWorld.Services
                 userActivityLog.date = DateTime.Today;
 
                 _activityLogRepository.addUserActivityLog(userActivityLog);
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
 
         public void deleteUserPoc(int id, int userId)
         {
             _logger.LogInformation("SkillService deleteUserPoc");
-            var userPoc = _accomplishmentRepository.getUserPocById(id);
+
+            try
+            {
+                var userPoc = _accomplishmentRepository.getUserPocById(id);
 
                 if (userPoc == null)
                 {
@@ -203,13 +263,28 @@ namespace helloWorld.Services
                 userActivityLog.date = DateTime.Today;
 
                 _activityLogRepository.addUserActivityLog(userActivityLog);
+            }
+
+            catch
+            {
+                throw;
+            }
+
 
         }
 
         public List<AccomplishmentModel> getUserPoc(int userId)
         {
-
+            try
+            {
                 return _accomplishmentRepository.getUserPocs(userId);
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
     }
 }

@@ -22,41 +22,57 @@ namespace helloWorld.Services
         public string verifyUser(UserRequest userRequest)
         {
             _logger.LogInformation("HomeService verifyUser");
-            User user = _userRepository.getUserByEmail(userRequest.email);
-
-            if (user == null)
+            try
             {
-                _logger.LogError("{@userRequest} not found", userRequest);
-                throw new Exception("User with given email not found");
+                User user = _userRepository.getUserByEmail(userRequest.email);
+
+                if (user == null)
+                {
+                    _logger.LogError("{@userRequest} not found", userRequest);
+                    throw new Exception("User with given email not found");
+                }
+
+                if (user.email != userRequest.email)
+                {
+                    _logger.LogError("{@userRequest} given email not found", userRequest);
+                    throw new Exception("invaild credentials");
+                }
+
+                return _jwtTokenUtils.createToken(user);
+
             }
 
-            if (user.email != userRequest.email)
+            catch
             {
-                _logger.LogError("{@userRequest} given email not found", userRequest);
-                throw new Exception("invaild credentials");
+                throw;
             }
-
-            return _jwtTokenUtils.createToken(user);
-
         }
 
         public void createUser(UserModel userRequest)
         {
+           
             User user = _userRepository.getUserByEmail(userRequest.email);
 
-            if (user != null)
+            try
             {
-                _logger.LogError("{@userRequest} given not found", userRequest);
-                throw new Exception("User with given email already exist");
+                if (user != null)
+                {
+                    _logger.LogError("{@userRequest} given not found", userRequest);
+                    throw new Exception("User with given email already exist");
+                }
+
+                var userModel = new User();
+                userModel.email = userRequest.email;
+                userModel.name = userRequest.name;
+                userModel.password = userRequest.password;
+
+                _userRepository.addUser(userModel);
             }
 
-            var userModel = new User();
-            userModel.email = userRequest.email;
-            userModel.name = userRequest.name;
-            userModel.password = userRequest.password;
-
-            _userRepository.addUser(userModel);
-
+            catch
+            {
+                throw;
+            }
         }
     }
 }

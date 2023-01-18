@@ -23,34 +23,75 @@ namespace helloWorld.Repositories
 
         public SkillSetMapping getSkillById(int skillSetId)
         {
-           return _DbContext.skillSetMappings.Find(skillSetId);
+            try
+            {
+                return _DbContext.skillSetMappings.Find(skillSetId);
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public List<Skill> getSkillByUserId(int userId)
         {
-            var userSkill = _DbContext.skillSetMappings.Where(s => s.User.id == userId).Select(s => s.Skill).ToList();
+            try
+            {
+                var userSkill = _DbContext.skillSetMappings.Where(s => s.User.id == userId).Select(s => s.Skill).ToList();
 
-            return userSkill;
+                return userSkill;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public SkillSetMapping getSkillSetById(int skillSetId, int userId)
         {
-            var userSkillSet = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillSetId).FirstOrDefault();
+            try
+            {
+                var userSkillSet = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillSetId).FirstOrDefault();
 
-            return userSkillSet;
+                return userSkillSet;
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
 
         public Skill getUserSkillBySkill(int userId, int skillId)
         {
-            var userSkill = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillId).Select(s => s.Skill).FirstOrDefault();
+            try
+            {
+                var userSkill = _DbContext.skillSetMappings.Where(s => s.User.id == userId && s.Id == skillId).Select(s => s.Skill).FirstOrDefault();
 
-            return userSkill;
+                return userSkill;
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
 
         public void updateSkillSet(SkillSetMapping skillSet)
         {
-            _DbContext.skillSetMappings.Update(skillSet);
-            _DbContext.SaveChanges();
+            try
+            {
+                _DbContext.skillSetMappings.Update(skillSet);
+                _DbContext.SaveChanges();
+            }
+
+            catch
+            {
+                throw;
+            }
         }
     }
 }

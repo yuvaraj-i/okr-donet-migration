@@ -22,12 +22,28 @@ namespace helloWorld.Repositories
 
         public List<ActivityLog> getUserActivityLog(int userId)
         {
-           return _DbContext.activityLogs.Where(s => s.user.id == userId).ToList();
+            try
+            {
+                return _DbContext.activityLogs.Where(s => s.user.id == userId).ToList();
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public List<ActivityLog> getUserActivityLogsByLimit(int page, int userId, int skipLimit)
         {
-            return _DbContext.activityLogs.Where(s => s.user.id == userId).OrderByDescending(s => s.date).Skip(skipLimit).Take(LIMIT).ToList();
+            try
+            {
+                return _DbContext.activityLogs.Where(s => s.user.id == userId).OrderByDescending(s => s.date).Skip(skipLimit).Take(LIMIT).ToList();
+            }
+
+            catch
+            {
+                throw;
+            }
         }
     }
 }

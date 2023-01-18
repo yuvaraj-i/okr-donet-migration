@@ -22,19 +22,34 @@ namespace helloWorld.Services
         {
             _logger.LogInformation("DashboardService getAllActivity");
 
-            int skip = (page - 1) * LIMIT;
+            try
+            {
+                int skip = (page - 1) * LIMIT;
 
-            List<ActivityLog> activityList = _activityLogRepository.getUserActivityLogsByLimit(page, userId, skip);
+                List<ActivityLog> activityList = _activityLogRepository.getUserActivityLogsByLimit(page, userId, skip);
 
-            return activityList;
-            
+                return activityList;
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public List<ActivityLog> getAllActivity(int userId)
         {
             _logger.LogInformation("DashboardService getAllActivity");
-            return _activityLogRepository.getUserActivityLog(userId);
-            
+
+            try
+            {
+                return _activityLogRepository.getUserActivityLog(userId);
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
     }

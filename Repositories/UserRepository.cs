@@ -23,12 +23,31 @@ namespace helloWorld.Repositories
 
         public User getUserByEmail(string email)
         {
-            return _DbContext.users.Where(s => s.email == email).FirstOrDefault<User>();
+            try
+            {
+
+                return _DbContext.users.Where(s => s.email == email).FirstOrDefault<User>();
+            }
+
+            catch
+            {
+                throw;
+            }
         }
 
         public User getUserById(int id)
         {
-            return _DbContext.users.Find(id);
+            try
+            {
+
+             return _DbContext.users.Find(id);
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
     }
 }

@@ -8,31 +8,45 @@ namespace helloWorld.Utils
 {
 	public class JwtTokenUtils : IJwtTokenUtils
     {
-		public JwtTokenUtils()
+        private readonly IConfiguration _configuration;
+
+        public JwtTokenUtils(IConfiguration configuration)
 		{
+            _configuration = configuration;
 		}
 
         public string createToken(User user)
         {
-            List<Claim> claims = new List<Claim>
+            try
+            {
+                List<Claim> claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email,user.email),
                     new Claim(ClaimTypes.Name,user.id.ToString())
                 };
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("my favourite token is here thank you"));
+                var tokenKey = _configuration.GetValue<string>("Token:Key");
 
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(tokenKey));
 
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
-                signingCredentials: cred
-                );
+                var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var Jwt = new JwtSecurityTokenHandler().WriteToken(token);
+                var token = new JwtSecurityToken(
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(60),
+                    signingCredentials: cred
+                    );
 
-            return Jwt;
+                var Jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+                return Jwt;
+            }
+
+            catch
+            {
+                throw;
+            }
+
         }
     }
 }
